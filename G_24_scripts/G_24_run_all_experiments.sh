@@ -70,4 +70,10 @@ if [[ "$PHASE" == "all" || "$PHASE" == "mitigations" ]]; then
 fi
 
 
+echo ""
+echo "╔═══════════════════════════════════════════════════╗"
+echo "║  Phase '${PHASE}' complete!                        "
+echo "║  Data directory: ./data/                           ║"
+echo "╚═══════════════════════════════════════════════════╝"
+
 
