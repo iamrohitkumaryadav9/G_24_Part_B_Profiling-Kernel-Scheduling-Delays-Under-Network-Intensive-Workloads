@@ -87,7 +87,7 @@ def get_ctx_switches(filepath):
         for line in f:
             if '@ctx_switches:' in line:
                 try: val = int(line.split()[-1])
-                except: pass
+                except Exception: pass
     return val
 
 def get_voluntary(filepath):
@@ -97,7 +97,7 @@ def get_voluntary(filepath):
         for line in f:
             if '@voluntary:' in line:
                 try: val = int(line.split()[-1])
-                except: pass
+                except Exception: pass
     return val
 
 def get_iperf3_throughput(filepath):
@@ -108,7 +108,7 @@ def get_iperf3_throughput(filepath):
         end = data.get('end', {})
         sr = end.get('sum_received', end.get('sum', {}))
         return sr.get('bits_per_second', 0)
-    except: return 0
+    except Exception: return 0
 
 def get_tcp_retransmits(filepath):
     if not os.path.exists(filepath): return 0
@@ -118,7 +118,7 @@ def get_tcp_retransmits(filepath):
         first = lines[1].strip().split(',')
         last = lines[-1].strip().split(',')
         return int(last[1]) - int(first[1])
-    except: return 0
+    except Exception: return 0
 
 def get_softnet_squeeze(filepath):
     if not os.path.exists(filepath): return 0
@@ -142,7 +142,7 @@ def get_softnet_squeeze(filepath):
             if cpu in first_vals:
                 total += last_vals[cpu] - first_vals[cpu]
         return total
-    except: return 0
+    except Exception: return 0
 
 def get_softirq_per_cpu(filepath):
     if not os.path.exists(filepath): return {}
@@ -175,7 +175,7 @@ def get_cpu_migrations_total(filepath):
         if blocks:
             return sum(blocks[-1].values())
         return 0
-    except: return 0
+    except Exception: return 0
 
 def get_cpu_softirq_pct(filepath):
     """Compute softirq CPU% from cpu_util.csv (delta-based)."""
@@ -199,7 +199,7 @@ def get_cpu_softirq_pct(filepath):
         d_si = rows_by_ts[timestamps[-1]]['softirq'] - rows_by_ts[timestamps[0]]['softirq']
         d_total = rows_by_ts[timestamps[-1]]['total'] - rows_by_ts[timestamps[0]]['total']
         return round(d_si / d_total * 100, 2) if d_total > 0 else 0.0
-    except: return 0.0
+    except Exception: return 0.0
 
 # ─── Average histogram buckets across runs ─────────────────────────
 def get_avg_histogram_buckets(exp):
