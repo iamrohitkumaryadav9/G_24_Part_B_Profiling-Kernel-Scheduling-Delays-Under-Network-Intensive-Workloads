@@ -12,6 +12,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 RUN_EXP="$SCRIPT_DIR/24_run_experiment.sh"
 
 # Defaults
+# --- Default Configuration Parameters ---
 DURATION=60
 RUNS=3
 
@@ -24,10 +25,10 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-echo "╔═══════════════════════════════════════════════════╗"
-echo "║  Phase 2: Softirq Placement & Pinning (E5–E8)    ║"
-echo "║  Duration: ${DURATION}s per run, ${RUNS} runs each   "
-echo "╚═══════════════════════════════════════════════════╝"
+echo "╔═════════════════════════════════════════════════════╗"
+echo "║  Phase 2: Softirq Placement & Pinning (E5–E8)       ║"
+echo "║  Duration: ${DURATION}s per run, ${RUNS} runs each  ║"
+echo "╚═════════════════════════════════════════════════════╝"
 echo ""
 
 # ─── E5: RPS pinned ─────────────────────────────────────────────
@@ -43,6 +44,9 @@ bash "$RUN_EXP" --exp E6 \
     --protocol tcp --duration "$DURATION" --runs "$RUNS"
 
 
+
+
+
 # ─── E7: App pinned ─────────────────────────────────────────────
 bash "$RUN_EXP" --exp E7 \
     --cpu-stress heavy --net-load high --rps-placement default \
@@ -56,8 +60,5 @@ bash "$RUN_EXP" --exp E8 \
     --protocol tcp --duration "$DURATION" --runs "$RUNS"
 
 
-    
-
-
-echo ""
+echo "══════════════════════════════════════════════════════"
 echo "Phase 2 (Placement & Pinning) complete! Data directory: ./data/"
