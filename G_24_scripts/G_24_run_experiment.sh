@@ -9,7 +9,7 @@ set -euo pipefail
 
 
 
-# ─── Defaults ────────────────────────────────────────────────────
+# ─── Default configurations of the setup ────────────────────────────────────────────────────
 EXP_NAME="E1"
 CPU_STRESS="none"           # none | moderate | heavy
 NET_LOAD="low"              # low | high
@@ -25,7 +25,7 @@ SERVER_IP="10.0.0.1"
 WARMUP=10
 COOLDOWN=10
 
-# ─── Parse arguments ────────────────────────────────────────────
+# ─── Parse arguments ──────────────────────────────────────────
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -83,6 +83,7 @@ restore_sysctl_defaults() {
 
 apply_rps_placement() {
     # veth-srv lives inside the 'srv' namespace — must access RPS sysfs via nsenter
+    #  RPS sysfs via nsenter to apply the settings.
     systemctl stop irqbalance 2>/dev/null || true
 
     local rps_path="/sys/class/net/veth-srv/queues/rx-0/rps_cpus"
@@ -90,7 +91,8 @@ apply_rps_placement() {
 
     case "$1" in
         default)
-            # Clear RPS (softirq runs on whichever CPU receives the packet)
+            # Clear RPS 
+            # Csoftirq runs on whichever CPU receives the packet
             ip netns exec srv bash -c "echo 0 > $rps_path" 2>/dev/null || true
             echo "  RPS: default (no steering)"
             ;;
@@ -214,7 +216,8 @@ start_ebpf_probes() {
 
     # NOTE: bpftrace v0.21+ sends ALL output (histograms + printf) to stdout.
     # We use -q to suppress "Attaching N probes..." and capture everything
-    # in a single raw file, then split CSV vs histograms in post-processing.
+    # in a single raw file
+    # then split CSV vs histograms in post-processing.
 
     "$BPFTRACE" -q "$TOOLS_DIR/24_sched_delay.bt"    > "$outdir/sched_delay_raw.txt" 2>&1 &
     PROBE_PIDS+=($!)
@@ -235,7 +238,8 @@ start_ebpf_probes() {
 }
 
 split_bpftrace_output() {
-    # Post-process raw bpftrace output: extract CSV lines vs histogram/summary
+    # Post-process raw bpftrace output
+    #extract CSV lines vs histogram/summary
     local outdir="$1"
 
     for tool in sched_delay softirq_net net_drops cpu_migrations; do
@@ -279,7 +283,7 @@ run_load() {
         pin_flag="taskset -c 2,3"
     fi
 
-    # ─── Warmup phase ───
+    # ────── Warmup phase ──────
     # iperf3 warmup (network saturation)
     ip netns exec cli iperf3 -c "$SERVER_IP" -t "$WARMUP" $bandwidth $udp_flag \
         --json > /dev/null 2>&1 || true
