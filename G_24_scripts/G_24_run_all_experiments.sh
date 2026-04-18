@@ -58,4 +58,16 @@ if [[ "$PHASE" == "all" || "$PHASE" == "placement" ]]; then
     bash "$SCRIPT_DIR/24_phase2_placement.sh" $COMMON_ARGS
 fi
 
+# ─── Phase 3: CFS, Softirq, UDP (E9–E13) ────────────────────────
+if [[ "$PHASE" == "all" || "$PHASE" == "advanced" ]]; then
+    bash "$SCRIPT_DIR/24_phase3_advanced.sh" $COMMON_ARGS
+fi
+
+
+# ─── Phase 4: Mitigations (E14–E16) ─────────────────────────────
+if [[ "$PHASE" == "all" || "$PHASE" == "mitigations" ]]; then
+    bash "$SCRIPT_DIR/24_phase4_mitigations.sh" $COMMON_ARGS
+fi
+
+
 
