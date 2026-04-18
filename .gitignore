@@ -20,17 +20,17 @@ Thumbs.db
 
 # Large data files (>50MB each, excluded from Git)
 # cpu_migrations_raw.txt and cpu_migrations.csv are ~85MB each per run
-data/*/run_*/cpu_migrations_raw.txt
-data/*/run_*/cpu_migrations.csv
+G_24_data/G_24_*/run_*/cpu_migrations_raw.txt
+G_24_data/G_24_*/run_*/cpu_migrations.csv
 
 # Old/irrelevant plots from wrong experiments
-plots/fig*.png
+G_24_plots/fig*.png
 
 # Extraction log
-scripts/extract_log.txt
+G_24_scripts/extract_log.txt
 
 # Compiled binaries (C executables built from *.c sources)
-ebpf_tools/24_*
-!ebpf_tools/24_*.bt
-!ebpf_tools/24_*.c
-!ebpf_tools/24_*.sh
+G_24_ebpf_tools/G_24_*
+!G_24_ebpf_tools/G_24_*.bt
+!G_24_ebpf_tools/G_24_*.c
+!G_24_ebpf_tools/G_24_*.sh
