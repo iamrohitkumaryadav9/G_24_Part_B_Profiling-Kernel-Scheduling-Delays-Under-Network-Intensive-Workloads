@@ -82,7 +82,7 @@ def get_cumulative_histogram(exp, run="run_1"):
             ["cat", fpath], capture_output=True, text=True, timeout=30
         )
         content = result.stdout
-    except:
+    except Exception:
         return []
 
     # Find all @runq_delay_us blocks
@@ -166,7 +166,7 @@ def get_voluntary_switches(exp, run="run_1"):
         lines = result.stdout.strip().split('\n')
         if lines and lines[-1]:
             return int(lines[-1].split()[-1])
-    except:
+    except Exception:
         pass
     return None
 
@@ -180,7 +180,7 @@ def get_softirq_per_cpu(exp, run="run_1"):
             ["cat", fpath], capture_output=True, text=True, timeout=30
         )
         content = result.stdout
-    except:
+    except Exception:
         return {}
 
     pattern = re.compile(r'^@net_rx_count\[(\d+)\]:\s+(\d+)')
@@ -210,7 +210,7 @@ def get_softnet_deltas(exp, run="run_1"):
         tail = subprocess.run(
             ["tail", "-1", fpath], capture_output=True, text=True, timeout=5
         ).stdout.strip()
-    except:
+    except Exception:
         return {"time_squeeze": 0, "dropped": 0}
 
     if len(head) < 2:
@@ -226,7 +226,7 @@ def get_softnet_deltas(exp, run="run_1"):
             idx = header.index(col)
             try:
                 result[col] = int(last[idx]) - int(first[idx])
-            except:
+            except Exception:
                 result[col] = 0
         else:
             result[col] = 0
@@ -244,7 +244,7 @@ def get_tcp_retransmits(exp, run="run_1"):
         tail = subprocess.run(
             ["tail", "-1", fpath], capture_output=True, text=True, timeout=5
         ).stdout.strip()
-    except:
+    except Exception:
         return 0
 
     if len(head) < 2:
@@ -258,7 +258,7 @@ def get_tcp_retransmits(exp, run="run_1"):
             idx = header.index(col)
             try:
                 return int(last[idx]) - int(first[idx])
-            except:
+            except Exception:
                 pass
     return 0
 
@@ -275,7 +275,7 @@ def get_cpu_migrations(exp, run="run_1"):
         lines = result.stdout.strip().split('\n')
         if lines and lines[-1]:
             return int(lines[-1].split()[-1])
-    except:
+    except Exception:
         pass
     return 0
 
