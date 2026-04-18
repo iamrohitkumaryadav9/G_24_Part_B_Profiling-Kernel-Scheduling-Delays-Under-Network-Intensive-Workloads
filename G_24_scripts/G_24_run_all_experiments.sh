@@ -1,8 +1,10 @@
 #!/bin/bash
-# 24_run_all_experiments.sh — Execute the full 16-experiment matrix
+# 24_run_all_experiments.sh 
+#— Execute the full 16-experiment matrix
 # Usage: sudo ./24_run_all_experiments.sh [--duration 60] [--runs 3] [--phase baselines|placement|advanced|mitigations|all]
 #
-# This orchestrator delegates to individual phase scripts:
+# This orchestrator delegates to individual phase scripts
+# Where each phase represents
 #   Phase 1: 24_phase1_baselines.sh    (E1–E4)
 #   Phase 2: 24_phase2_placement.sh    (E5–E8)
 #   Phase 3: 24_phase3_advanced.sh     (E9–E13)
