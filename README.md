@@ -190,42 +190,42 @@ sudo apt update && sudo apt install -y \
 
 ```bash
 # 1. Set up testbed (network namespaces + veth pair)
-sudo scripts/24_setup_testbed.sh setup
+sudo G_24_scripts/G_24_setup_testbed.sh setup
 
 # 2a. Run all 16 experiments at once (3 runs each, ~4 hours)
-sudo scripts/24_run_all_experiments.sh
+sudo G_24_scripts/G_24_run_all_experiments.sh
 
 # 2b. Or run individual phases:
-sudo scripts/24_phase1_baselines.sh    --duration 60 --runs 3   # E1–E4
-sudo scripts/24_phase2_placement.sh    --duration 60 --runs 3   # E5–E8
-sudo scripts/24_phase3_advanced.sh     --duration 60 --runs 3   # E9–E13
-sudo scripts/24_phase4_mitigations.sh  --duration 60 --runs 3   # E14–E16
+sudo G_24_scripts/G_24_phase1_baselines.sh    --duration 60 --runs 3   # E1–E4
+sudo G_24_scripts/G_24_phase2_placement.sh    --duration 60 --runs 3   # E5–E8
+sudo G_24_scripts/G_24_phase3_advanced.sh     --duration 60 --runs 3   # E9–E13
+sudo G_24_scripts/G_24_phase4_mitigations.sh  --duration 60 --runs 3   # E14–E16
 
 # 2c. Or use the orchestrator with --phase flag:
-sudo scripts/24_run_all_experiments.sh --phase baselines
-sudo scripts/24_run_all_experiments.sh --phase placement
-sudo scripts/24_run_all_experiments.sh --phase advanced
-sudo scripts/24_run_all_experiments.sh --phase mitigations
+sudo G_24_scripts/G_24_run_all_experiments.sh --phase baselines
+sudo G_24_scripts/G_24_run_all_experiments.sh --phase placement
+sudo G_24_scripts/G_24_run_all_experiments.sh --phase advanced
+sudo G_24_scripts/G_24_run_all_experiments.sh --phase mitigations
 
 # 3. Validate data integrity (420 checks)
-bash scripts/24_cross_validate_data.sh
+bash G_24_scripts/G_24_cross_validate_data.sh
 
 # 4. Extract precise metrics from raw data
-python3 scripts/24_extract_metrics.py > analysis/24_hardcoded_data.py
+python3 G_24_scripts/G_24_extract_metrics.py > G_24_analysis/G_24_hardcoded_data.py
 
 # 5. Generate all 21 plots (instant, from hardcoded data)
-python3 analysis/24_generate_plots_hardcoded.py
+python3 G_24_analysis/G_24_generate_plots_hardcoded.py
 
 # 6. Validate hypotheses
-python3 analysis/24_validate_h1.py
-python3 analysis/24_validate_h2_h3.py
-python3 analysis/24_validate_h4.py
+python3 G_24_analysis/G_24_validate_h1.py
+python3 G_24_analysis/G_24_validate_h2_h3.py
+python3 G_24_analysis/G_24_validate_h4.py
 ```
 
 ### Teardown
 
 ```bash
-sudo scripts/24_setup_testbed.sh teardown
+sudo G_24_scripts/G_24_setup_testbed.sh teardown
 ```
 
 ## 🧩 Hypothesis Results
