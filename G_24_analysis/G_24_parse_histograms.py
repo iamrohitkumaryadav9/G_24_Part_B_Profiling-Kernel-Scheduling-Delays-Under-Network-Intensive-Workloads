@@ -97,7 +97,6 @@ def buckets_to_cdf(buckets):
     """
     Convert histogram buckets to CDF arrays.
     Returns (x_values_us, cdf_values) where CDF is 0..1.
-    Uses the upper edge of each bucket for the x-axis.
     """
     if not buckets:
         return np.array([]), np.array([])
