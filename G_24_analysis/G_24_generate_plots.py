@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Phase 7: Derived Metrics & Final Visualization
-Generates all 15+ plots and a summary metrics CSV.
+Generates all more than 15 plots and a summary metrics CSV.
 
 """
 
@@ -280,7 +280,7 @@ def get_cpu_migrations(exp, run="run_1"):
     return 0
 
 
-# ─── Data Collection ───────────────────────────────────────────────────
+# ─── Data Collection Part ───────────────────────────────────────────────────
 
 
 def collect_all_metrics():
@@ -348,7 +348,7 @@ def collect_all_metrics():
     return metrics
 
 
-# ─── Plot Functions ────────────────────────────────────────────────────
+# ─── Plot Functions that modified  ────────────────────────────────────────────────────
 
 
 def plot_1_all_cdf(metrics):
