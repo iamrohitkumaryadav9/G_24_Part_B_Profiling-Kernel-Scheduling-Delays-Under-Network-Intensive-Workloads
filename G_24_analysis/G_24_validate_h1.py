@@ -190,8 +190,8 @@ def plot_per_cpu_comparison(experiments_data, metric, output_path, title, num_cp
                       label=exp_name, color=colors[i % len(colors)],
                       alpha=0.85, edgecolor='none')
 
-    ax.set_xlabel('CPU Core', fontsize=13, color='#e0e0e0', fontweight='bold')
-    ax.set_ylabel('% of Total', fontsize=13, color='#e0e0e0', fontweight='bold')
+    ax.set_xlabel('CPU Core', fontsize=14, color='#e0e0e0', fontweight='bold')
+    ax.set_ylabel('% of Total', fontsize=14, color='#e0e0e0', fontweight='bold')
     ax.set_title(title, fontsize=14, color='#ffffff', fontweight='bold', pad=15)
     ax.set_xticks(cpus)
     ax.set_xticklabels([str(c) for c in cpus], fontsize=9)
@@ -208,7 +208,7 @@ def plot_per_cpu_comparison(experiments_data, metric, output_path, title, num_cp
     fig.savefig(output_path, dpi=150, bbox_inches='tight',
                 facecolor=fig.get_facecolor(), edgecolor='none')
     plt.close(fig)
-    print(f"  ✓ Saved: {output_path}")
+    print(f"  Saved: {output_path}")
 
 
 def plot_concentration_summary(all_metrics, output_path):
@@ -345,26 +345,26 @@ def main():
         e5_cpu0_frac = e5_rx[0] / np.sum(e5_rx) * 100 if np.sum(e5_rx) > 0 else 0
         e4_max_cpu = np.argmax(e4_rx)
         e5_max_cpu = np.argmax(e5_rx)
-        print(f"  ✓ E4 vs E5 (RPS pinning to CPU0):")
+        print(f"  E4 vs E5 (RPS pinning to CPU0):")
         print(f"    E4: CPU0 handles {e4_cpu0_frac:.1f}% of softirqs, max is CPU{e4_max_cpu} ({e4_rx[e4_max_cpu]/np.sum(e4_rx)*100:.1f}%)")
         print(f"    E5: CPU0 handles {e5_cpu0_frac:.1f}% of softirqs, max is CPU{e5_max_cpu} ({e5_rx[e5_max_cpu]/np.sum(e5_rx)*100:.1f}%)")
         if e5_cpu0_frac > e4_cpu0_frac:
-            print(f"    → RPS pinning increased CPU0 softirq share: {e4_cpu0_frac:.1f}% → {e5_cpu0_frac:.1f}% ✓")
+            print(f"     RPS pinning increased CPU0 softirq share: {e4_cpu0_frac:.1f}% → {e5_cpu0_frac:.1f}% ✓")
         else:
-            print(f"    → RPS pinning did NOT increase CPU0 share (may reflect namespace behavior)")
+            print(f"     RPS pinning did NOT increase CPU0 share (may reflect namespace behavior)")
 
     # Check 2: E4 vs E6 — RPS spread reduces max-CPU fraction
     e6_data = all_data.get('E6 (RPS→all)', {})
     if e4_data and e6_data:
         e4_conc = all_conc_metrics.get('E4 (default)', {})
         e6_conc = all_conc_metrics.get('E6 (RPS→all)', {})
-        print(f"\n  ✓ E4 vs E6 (RPS spread):")
+        print(f"\n   E4 vs E6 (RPS spread):")
         print(f"    E4 max-CPU fraction: {e4_conc['max_fraction']*100:.1f}%, Gini: {e4_conc['gini']:.3f}")
         print(f"    E6 max-CPU fraction: {e6_conc['max_fraction']*100:.1f}%, Gini: {e6_conc['gini']:.3f}")
         if e6_conc['max_fraction'] < e4_conc['max_fraction']:
-            print(f"    → RPS spread REDUCED max-CPU softirq share ✓")
+            print(f"     RPS spread REDUCED max-CPU softirq share ✓")
         else:
-            print(f"    → RPS spread did NOT reduce max-CPU share (kernel may already balance veth)")
+            print(f"    RPS spread did NOT reduce max-CPU share (kernel may already balance veth)")
 
     # Check 3: E8 — app on CPUs 2,3 should show isolation
     e8_data = all_data.get('E8 (RPS+pin)', {})
@@ -374,13 +374,13 @@ def main():
         app_cpus = [2, 3]
         app_cpu_frac = sum(e8_rx[c] for c in app_cpus) / total_e8 * 100 if total_e8 > 0 else 0
         other_frac = 100 - app_cpu_frac
-        print(f"\n  ✓ E8 (RPS pinned + app on CPUs 2,3):")
+        print(f"\n   E8 (RPS pinned + app on CPUs 2,3):")
         print(f"    CPUs 2,3 (app threads) handle {app_cpu_frac:.1f}% of softirqs")
         print(f"    Other CPUs handle {other_frac:.1f}% of softirqs")
         if app_cpu_frac < 20:
-            print(f"    → Good isolation: app CPUs handle minimal softirq work ✓")
+            print(f"    Good isolation: app CPUs handle minimal softirq work ✓")
         else:
-            print(f"    → Note: app CPUs still handle significant softirq ({app_cpu_frac:.1f}%)")
+            print(f"    Note: app CPUs still handle significant softirq ({app_cpu_frac:.1f}%)")
             print(f"      (RPS pin may steer TO CPU0, but kernel can also schedule softirq on 2,3)")
 
     # ─── Generate plots ──────────────────────────────────────────
