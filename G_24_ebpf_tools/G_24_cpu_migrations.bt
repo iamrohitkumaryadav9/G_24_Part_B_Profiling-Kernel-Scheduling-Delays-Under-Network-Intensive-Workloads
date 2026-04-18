@@ -1,7 +1,6 @@
 #!/usr/bin/env bpftrace
 /*
  * 24_cpu_migrations.bt — Track task migrations across CPUs
- * Usage: sudo bpftrace 24_cpu_migrations.bt 2>migrations.txt
  */
 
 BEGIN
