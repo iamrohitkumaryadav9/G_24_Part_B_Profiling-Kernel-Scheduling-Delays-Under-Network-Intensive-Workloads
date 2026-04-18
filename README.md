@@ -109,57 +109,58 @@ All percentiles computed from **~20,000 sampled scheduling delay events per run*
 ## 📁 Repository Structure
 
 ```
-├── scripts/                           # Experiment orchestration
-│   ├── 24_setup_testbed.sh              # Create/teardown network namespaces + veth
-│   ├── 24_run_experiment.sh             # Run a single experiment (10 CLI params)
-│   ├── 24_run_all_experiments.sh        # Orchestrator: runs all 4 phases (or one)
-│   ├── 24_phase1_baselines.sh           # Phase 1: Baseline experiments (E1–E4)
-│   ├── 24_phase2_placement.sh           # Phase 2: Softirq placement & pinning (E5–E8)
-│   ├── 24_phase3_advanced.sh            # Phase 3: CFS, softirq, UDP (E9–E13)
-│   ├── 24_phase4_mitigations.sh         # Phase 4: Mitigation strategies (E14–E16)
-│   ├── 24_cross_validate_data.sh        # 420-check data integrity validation
-│   └── 24_extract_metrics.py            # Extract precise metrics → hardcoded data
+├── G_24_scripts/                      # Experiment orchestration
+│   ├── G_24_setup_testbed.sh            # Create/teardown network namespaces + veth
+│   ├── G_24_run_experiment.sh           # Run a single experiment (10 CLI params)
+│   ├── G_24_run_all_experiments.sh      # Orchestrator: runs all 4 phases (or one)
+│   ├── G_24_phase1_baselines.sh         # Phase 1: Baseline experiments (E1–E4)
+│   ├── G_24_phase2_placement.sh         # Phase 2: Softirq placement & pinning (E5–E8)
+│   ├── G_24_phase3_advanced.sh          # Phase 3: CFS, softirq, UDP (E9–E13)
+│   ├── G_24_phase4_mitigations.sh       # Phase 4: Mitigation strategies (E14–E16)
+│   └── G_24_extract_metrics.py          # Extract precise metrics → hardcoded data
 │
-├── ebpf_tools/                        # eBPF instrumentation (5 scripts)
-│   ├── 24_sched_delay.bt                # sched_wakeup → sched_switch runqueue delay
-│   ├── 24_softirq_net.bt               # NET_RX/TX softirq per-CPU duration
-│   ├── 24_net_drops.bt                  # kfree_skb drops + tcp_retransmit_skb
-│   ├── 24_cpu_migrations.bt            # sched_migrate_task tracking
-│   ├── 24_proc_pollers.sh              # /proc/stat, softnet_stat, snmp, sockstat
-│   └── 24_busy_poll_echo_server.c      # Custom SO_BUSY_POLL echo server (E15/E16)
+├── G_24_ebpf_tools/                   # eBPF instrumentation (5 scripts)
+│   ├── G_24_sched_delay.bt              # sched_wakeup → sched_switch runqueue delay
+│   ├── G_24_softirq_net.bt             # NET_RX/TX softirq per-CPU duration
+│   ├── G_24_net_drops.bt               # kfree_skb drops + tcp_retransmit_skb
+│   ├── G_24_cpu_migrations.bt          # sched_migrate_task tracking
+│   ├── G_24_proc_pollers.sh            # /proc/stat, softnet_stat, snmp, sockstat
+│   └── G_24_busy_poll_echo_server.c    # Custom SO_BUSY_POLL echo server (E15/E16)
 │
-├── analysis/                          # Analysis & visualization
-│   ├── 24_hardcoded_data.py             # Pre-extracted metrics (instant plots)
-│   ├── 24_generate_plots_hardcoded.py   # 21 plots from hardcoded data (recommended)
-│   ├── 24_generate_plots.py             # 15+ plots from raw data (slow)
-│   ├── 24_parse_histograms.py           # Shared: histogram parser + CDF generator
-│   ├── 24_timeseries_plots.py           # Time-series 3-axis plots
-│   ├── 24_validate_h1.py               # H1: Softirq colocation hypothesis
-│   ├── 24_validate_h2_h3.py            # H2: ksoftirqd + H3: TCP vs UDP
-│   └── 24_validate_h4.py               # H4: Combined mitigations
+├── G_24_analysis/                     # Analysis & visualization
+│   ├── G_24_hardcoded_data.py           # Pre-extracted metrics (instant plots)
+│   ├── G_24_generate_plots_hardcoded.py # 21 plots from hardcoded data (recommended)
+│   ├── G_24_generate_plots.py           # 15+ plots from raw data (slow)
+│   ├── G_24_parse_histograms.py         # Shared: histogram parser + CDF generator
+│   ├── G_24_timeseries_plots.py         # Time-series 3-axis plots
+│   ├── G_24_validate_h1.py             # H1: Softirq colocation hypothesis
+│   ├── G_24_validate_h2_h3.py          # H2: ksoftirqd + H3: TCP vs UDP
+│   └── G_24_validate_h4.py             # H4: Combined mitigations
 │
-├── data/                              # Raw experiment data (960 files, ~64 MB)
-│   └── E{1..16}/run_{1..3}/             # 21 files per run:
-│       ├── metadata.json                  # Experiment config + system info
-│       ├── sched_delay.csv                # ~20K sampled scheduling delay events
-│       ├── sched_delay_summary.txt        # bpftrace histogram + percentile summary
-│       ├── softirq_net_summary.txt        # Per-CPU softirq distribution
-│       ├── cpu_util.csv                   # Per-second CPU utilization breakdown
-│       ├── iperf3_result.json             # Network throughput results
-│       ├── tcp_stats.csv                  # TCP retransmit counters
-│       ├── softnet_stat.csv               # Softnet drops & time_squeeze
-│       ├── cpu_migrations_summary.txt     # Task CPU migration counts
-│       └── ...                            # interrupts, sockstat, net_drops, etc.
+├── G_24_data/                         # Raw experiment data (960 files, ~64 MB)
+│   └── G_24_E{1..16}/run_{1..3}/       # 21 files per run:
+│       ├── metadata.json                 # Experiment config + system info
+│       ├── sched_delay.csv               # ~20K sampled scheduling delay events
+│       ├── sched_delay_summary.txt       # bpftrace histogram + percentile summary
+│       ├── softirq_net_summary.txt       # Per-CPU softirq distribution
+│       ├── cpu_util.csv                  # Per-second CPU utilization breakdown
+│       ├── iperf3_result.json            # Network throughput results
+│       ├── tcp_stats.csv                 # TCP retransmit counters
+│       ├── softnet_stat.csv              # Softnet drops & time_squeeze
+│       ├── cpu_migrations_summary.txt    # Task CPU migration counts
+│       └── ...                           # interrupts, sockstat, net_drops, etc.
 │
-├── plots/                             # Generated plots (46 PNGs + CSV)
-│   ├── 24_runqueue_delay_cdf_all.png    # All 16 experiments CDF overlay
-│   ├── 24_percentile_comparison.png     # p50/p99/p99.9 bar chart
-│   ├── 24_mitigation_p99_comparison.png # Mitigation effectiveness
-│   ├── 24_contention_threshold.png      # Stress progression with 1ms line
-│   ├── 24_throughput_comparison.png     # Network throughput per experiment
-│   ├── 24_experiment_metrics.csv        # Complete metrics in CSV format
+├── G_24_plots/                        # Generated plots (46 PNGs + CSV)
+│   ├── G_24_runqueue_delay_cdf_all.png  # All 16 experiments CDF overlay
+│   ├── G_24_percentile_comparison.png   # p50/p99/p99.9 bar chart
+│   ├── G_24_mitigation_p99_comparison.png # Mitigation effectiveness
+│   ├── G_24_contention_threshold.png    # Stress progression with 1ms line
+│   ├── G_24_throughput_comparison.png   # Network throughput per experiment
+│   ├── G_24_experiment_metrics.csv      # Complete metrics in CSV format
 │   └── ...                              # 40+ additional plots
 │
+├── requirements.txt                   # Python dependencies
+├── LICENSE                            # MIT License
 └── README.md                          # This file
 ```
 
@@ -272,4 +273,4 @@ sudo G_24_scripts/G_24_setup_testbed.sh teardown
 
 ## 📄 License
 
-Academic project — all rights reserved by the authors.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
