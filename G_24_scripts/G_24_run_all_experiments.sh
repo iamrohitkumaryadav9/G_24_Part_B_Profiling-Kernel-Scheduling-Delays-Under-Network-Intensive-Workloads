@@ -47,4 +47,15 @@ echo "║  Duration: ${DURATION}s per run, ${RUNS} runs each   "
 echo "╚═══════════════════════════════════════════════════╝"
 echo ""
 
+# ─── Phase 1: Baselines (E1–E4) ─────────────────────────────────
+if [[ "$PHASE" == "all" || "$PHASE" == "baselines" ]]; then
+    bash "$SCRIPT_DIR/24_phase1_baselines.sh" $COMMON_ARGS
+fi
+
+
+# ─── Phase 2: Softirq Placement & Pinning (E5–E8) ───────────────
+if [[ "$PHASE" == "all" || "$PHASE" == "placement" ]]; then
+    bash "$SCRIPT_DIR/24_phase2_placement.sh" $COMMON_ARGS
+fi
+
 
