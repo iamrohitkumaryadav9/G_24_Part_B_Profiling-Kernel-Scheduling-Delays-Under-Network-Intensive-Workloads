@@ -308,8 +308,8 @@ for exp in ALL_EXPS:
 print("}")
 print()
 
-# ─── Experiment configurations ─────────────────────────────────────
-print("# ─── Experiment configurations ────")
+# ─── Experiment configurations ─────────────────────────────────
+print("# ─────────────── Experiment configurations ──────────────────────")
 print("EXP_CONFIG = {")
 configs = [
     ("E1", "none", "low", "default", "none", "default", "default", "tcp"),
