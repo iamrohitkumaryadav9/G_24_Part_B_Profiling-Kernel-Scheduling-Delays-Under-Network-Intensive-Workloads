@@ -114,7 +114,7 @@ apply_rps_placement() {
     esac
 }
 
-#Tuning CFS 
+# THis function is to tune the complete fair scheduler  
 
 apply_cfs_tuning() {
     case "$1" in
