@@ -11,7 +11,9 @@
 #   Phase 4: 24_phase4_mitigations.sh  (E14–E16)
 #
 # Prerequisites:
+#  
 #   1. sudo ./scripts/24_setup_testbed.sh setup
+# This setup step esatblishes clent and server namespaces and links them using veth 
 #   2. Ensure bpftrace, iperf3, stress-ng are installed
 
 
