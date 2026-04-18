@@ -25,7 +25,7 @@ SERVER_IP="10.0.0.1"
 WARMUP=10
 COOLDOWN=10
 
-# ─── Parse arguments ──────────────────────────────────────────
+# ─── This step parse the commmand line aaruments and then adsigns to local variables──────────────────────────────────────────
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
