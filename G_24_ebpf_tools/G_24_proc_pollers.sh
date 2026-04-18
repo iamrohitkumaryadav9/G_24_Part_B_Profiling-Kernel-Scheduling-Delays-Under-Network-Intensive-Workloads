@@ -48,7 +48,6 @@ collect_softnet() {
 
 # ─── TCP SNMP stats (header-aware parsing) ──────────────────────
 # /proc/net/snmp has paired lines: a header line then a values line
-# with identical prefix. We match field names from the header to
 # extract the correct column indices, making this stable across
 # kernel versions.
 collect_tcp() {
@@ -97,7 +96,7 @@ collect_sockstat() {
     done
 }
 
-# ─── Interrupts snapshot ────────────────────────────────────────
+# ─── Interrupts snapshot work ────────────────────────────────────────
 collect_interrupts() {
     local f="$OUTPUT_DIR/interrupts.csv"
     echo "timestamp,snapshot" > "$f"
