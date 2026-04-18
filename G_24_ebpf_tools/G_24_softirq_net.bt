@@ -6,7 +6,7 @@
  *   softirq_cpu_pct[cpu] = sum(softirq_duration_us) / wall_clock_us * 100
  * Tracked via @softirq_total_us[cpu] (cumulative) printed every interval.
  *
- * Guard against orphaned entry/exit by always deleting the start timestamp
+ *
  * on exit, and overwriting on re-entry (handles nested/missed exits).
  *
  * No per-event printf — histogram-only for low overhead.
