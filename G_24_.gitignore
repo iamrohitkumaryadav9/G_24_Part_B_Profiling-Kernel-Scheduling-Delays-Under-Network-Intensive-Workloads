@@ -1,0 +1,36 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Gemini/agent artifacts (not part of the project)
+.gemini/
+.agents/
+
+# Large data files (>50MB each, excluded from Git)
+# cpu_migrations_raw.txt and cpu_migrations.csv are ~85MB each per run
+data/*/run_*/cpu_migrations_raw.txt
+data/*/run_*/cpu_migrations.csv
+
+# Old/irrelevant plots from wrong experiments
+plots/fig*.png
+
+# Extraction log
+scripts/extract_log.txt
+
+# Compiled binaries (C executables built from *.c sources)
+ebpf_tools/24_*
+!ebpf_tools/24_*.bt
+!ebpf_tools/24_*.c
+!ebpf_tools/24_*.sh

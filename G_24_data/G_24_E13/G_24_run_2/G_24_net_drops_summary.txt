@@ -1,0 +1,2 @@
+definitions.h:14:24: error: field has incomplete type 'enum skb_drop_reason'
+definitions.h:14:8: note: forward declaration of 'enum skb_drop_reason'
