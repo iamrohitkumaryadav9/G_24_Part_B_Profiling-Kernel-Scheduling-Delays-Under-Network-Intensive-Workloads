@@ -27,16 +27,16 @@ On commodity Linux systems, the kernel's softirq processing path (`NET_RX_SOFTIR
 ## 📊 Sample Results
 
 <p align="center">
-  <img src="plots/24_percentile_comparison.png" width="48%" alt="Percentile Comparison"/>
-  <img src="plots/24_softirq_cpu_heatmap.png" width="48%" alt="Softirq CPU Heatmap"/>
+  <img src="G_24_plots/G_24_percentile_comparison.png" width="48%" alt="Percentile Comparison"/>
+  <img src="G_24_plots/G_24_softirq_cpu_heatmap.png" width="48%" alt="Softirq CPU Heatmap"/>
 </p>
 <p align="center">
-  <img src="plots/24_baseline_stress_progression.png" width="48%" alt="Baseline CDF"/>
-  <img src="plots/24_mitigation_p99_comparison.png" width="48%" alt="Mitigation Comparison"/>
+  <img src="G_24_plots/G_24_baseline_stress_progression.png" width="48%" alt="Baseline CDF"/>
+  <img src="G_24_plots/G_24_mitigation_p99_comparison.png" width="48%" alt="Mitigation Comparison"/>
 </p>
 <p align="center">
-  <img src="plots/24_contention_threshold.png" width="48%" alt="Contention Threshold"/>
-  <img src="plots/24_throughput_comparison.png" width="48%" alt="Throughput Comparison"/>
+  <img src="G_24_plots/G_24_contention_threshold.png" width="48%" alt="Contention Threshold"/>
+  <img src="G_24_plots/G_24_throughput_comparison.png" width="48%" alt="Throughput Comparison"/>
 </p>
 
 ## 🏗 Architecture
